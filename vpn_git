@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo "starting vpn connection"
+gsettings set org.gnome.system.proxy mode 'manual'
+SSHPASS='<YOUR_PASSWORD>' sshpass -e ssh -f -D 12345 -N <YOUR_USERNAME>@login.stud.ntnu.no w
+echo "VPN connected until you press ENTER"
+read _
+lsof -ti:12345 | xargs kill -9
+gsettings set org.gnome.system.proxy mode 'auto'
